@@ -1,0 +1,105 @@
+import time
+import random
+import matplotlib.pyplot as plt
+import config
+
+
+class utility:
+
+    @staticmethod
+    def checkForSatisfiability(self, clauses, variable):
+
+        statusOfClauses = []
+
+        for clause in clauses:
+            boolean_result = 0
+            for literal in clause:
+                boolean_result = 1 if ((literal > 0 and variable[literal - 1] == 1) or (
+                            literal <= 0 and variable[abs(literal) - 1] == 0)) else 0
+                if boolean_result:
+                    break
+            statusOfClauses.append(boolean_result)
+        result = 0 if 0 in statusOfClauses else 1
+        return result, statusOfClauses
+
+class searchForGWSAT:
+
+    def __init__(self, maxIter, maxTries, numberOfVariables, numberOfClauses, clauses):
+        self.maxIter = maxIter
+        self.maxTries =maxTries
+        self.numberOfVariables = numberOfVariables
+        self.numberOfClauses = numberOfClauses
+        self.clauses = clauses
+
+    def run(self):
+
+
+
+class randomWalkStep:
+
+    def __init__(self):
+
+    def selectRandomUnsatisfiedClause(self):
+
+    def selectRandomVariableFromUnsatisfiedClause(self,clause):
+
+    def getRandomWalkSolution(self):
+
+class greedyWalkStep:
+
+    def __init__(self):
+
+    def checkForGreedyVariable(self):
+
+    def selectGreendyVariableFromClause(self):
+
+    def getGreedySolution(self):
+
+
+
+class instantiateAndRunGWSAT:
+
+    def __init__(self, filePath, maxIter, maxTries):
+        self.filePath =filePath
+        self.maxIter = maxIter
+        self.maxTries = maxTries
+
+    def loadFile(self):
+
+        numberOfVariables =-1
+        numberOfClauses = -1
+        clauses = []
+        tempClauseFormulation = []
+
+        with open(self.filePath, "r") as f:
+            _data = f.readlines()
+
+        for row in _data:
+            if row.startswith("p"):
+                numberOfVariables = int(row.split()[2])
+                numberOfClauses = int(row.split()[3])
+            if not row.startswith(("c", "p", "0", "%")):
+                for word in row.split():
+                    if word != '0':
+                        tempClauseFormulation.append(int(word))
+                    else:
+                        clauses.append(tempClauseFormulation)
+                        tempClauseFormulation = []
+
+        assert numberOfVariables == -1,"Number of Variables not defined"
+        assert numberOfClauses == -1, "Number of clauses not defined"
+        assert len(clauses) != 0, "Clauses not found."
+
+        return numberOfVariables, numberOfClauses, clauses
+
+    def runGWSAT(self, numberOfObservation):
+        numberOfVariables, numberOfClauses, clauses =  self.loadFile()
+
+        for _ in range(numberOfObservation):
+            objSearchGWSAT = searchForGWSAT(self.maxIter, self.maxTries, self.numberOfVariables, self.numberOfClauses, self.clauses)
+
+
+if __name__ == 'main':
+    numberOfObservation,filePath, maxIter, maxTries
+    objGWSAT = instantiateAndRunGWSAT(numberOfObservation)
+
